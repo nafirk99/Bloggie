@@ -4,6 +4,7 @@ Web MVC Project Form Udemy By Sameer Saini
 =================================
 Progression Status
 5. Creating the DBContext Class
+9. Delete Tag Functionality
 =================================
 
 ======================================================
