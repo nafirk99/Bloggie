@@ -1,0 +1,68 @@
+﻿@model Bloggie.Web.Models.ViewModels.AddBlogPostRequest
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Add BlogPost - Admin Functionality</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input id="heading" class="form-control" type="text" value="" asp-for="Heading" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Page Title</label>
+            <input id="pageTitle" class="form-control" type="text" value="" asp-for="PageTitle" />
+        </div>
+
+        <div class="mb3">
+            <label class="form-label">Content</label>
+            <textarea class="form-control" id="content" asp-for="Content"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Short Description</label>
+            <input id="shortDescription" class="form-control" type="text" value="" asp-for="ShortDescription" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Featured Image URL</label>
+            <input id="featuredImageUrl" class="form-control" type="text" value="" asp-for="FeaturedImageUrl" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">URL Handle</label>
+            <input id="urlHandle" class="form-control" type="text" value="" asp-for="UrlHandle" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Pulished Date</label>
+            <input id="publishedDate" class="form-control" type="date" value="" asp-for="PublishedDate" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Author</label>
+            <input id="Author" class="form-control" type="text" value="" asp-for="Author" />
+        </div>
+
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="visible" asp-for="Visible">
+            <label class="form-check-label">Is Visible?</label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tag</label>
+            <select class="form-select" 
+                    asp-items="@Model.Tags" 
+                    asp-for="SelectedTags">
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-dark">Save BlogPost</button>
+        </div>
+    </form>
+</div>

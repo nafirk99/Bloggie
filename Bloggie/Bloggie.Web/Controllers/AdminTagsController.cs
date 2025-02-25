@@ -1,17 +1,21 @@
 ﻿using Bloggie.Web.Data;
 using Bloggie.Web.Models.Domain;
 using Bloggie.Web.Models.ViewModels;
+using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bloggie.Web.Controllers
 {
     public class AdminTagsController : Controller
     {
+        private readonly ITagRepository _tagRepository;
         private readonly BloggieDbContext _dbContext;
 
-        public AdminTagsController(BloggieDbContext dbContext)
+        public AdminTagsController(ITagRepository tagRepository, BloggieDbContext dbContext)
         {
+            this._tagRepository = tagRepository;
             this._dbContext = dbContext;
         }
         [HttpGet]
@@ -21,32 +25,30 @@ namespace Bloggie.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddTagRequest addTagRequest)
+        public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
+            // M >> D
             var tag = new Tag
             {
                 Name = addTagRequest.Name,
                 DisplayName = addTagRequest.DisplayName,
             };
 
-            _dbContext.Tags.Add(tag);
-            _dbContext.SaveChanges();
-
+            await _tagRepository.AddAsync(tag);
             return RedirectToAction("List", "AdminTags");
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            var tags = _dbContext.Tags.AsQueryable();
+            var tags = await _tagRepository.GetAllAsync();
             return View(tags);
         }
 
         [HttpGet]
-        public IActionResult Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            //var tag = _dbContext.Tags.Where(t => t.Id == id).FirstOrDefault();
-            var tag = _dbContext.Tags.Find(id);
+            var tag = await _tagRepository.GetAsync(id);
 
             if (tag != null)
             {
@@ -62,42 +64,33 @@ namespace Bloggie.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
         {
-            var tag = _dbContext.Tags.Find(editTagRequest.Id);
+            // M >> D
+            var tag = new Tag
+            {
+                Id = editTagRequest.Id,
+                Name = editTagRequest.Name,
+                DisplayName = editTagRequest.DisplayName
+            };
+            
+            var updatedTag =  await _tagRepository.UpdateAsync(tag);
 
-            if (tag != null) 
-            { 
-                tag.Name = editTagRequest.Name;
-                tag.DisplayName = editTagRequest.DisplayName;
-                _dbContext.SaveChanges();
-                return RedirectToAction("List", "AdminTags");
-            }
-            return RedirectToAction("Edit", new { id = editTagRequest.Id });
+            //return RedirectToAction("Edit", new { id = editTagRequest.Id });
+            return RedirectToAction("List", "AdminTags");
         }
 
         [HttpPost]
-        public IActionResult Delete(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
         {
-            var tag = _dbContext.Tags.Find(editTagRequest.Id);
-            if(tag != null)
-            {
-                _dbContext.Tags.Remove(tag);
-                _dbContext.SaveChanges();
-                return RedirectToAction("List");
-            }
+            var deletedTag = await _tagRepository.DeleteAsync(editTagRequest.Id);
             return RedirectToAction("Edit", new { id = editTagRequest.Id});
         }
 
         [HttpGet]
-        public IActionResult DeleteFront(Guid id)
+        public async Task<IActionResult> DeleteFront(Guid id)
         {
-            var tag = _dbContext.Tags.Find(id);
-            if (tag != null)
-            {
-                _dbContext.Tags.Remove(tag);
-                _dbContext.SaveChanges();
-            }
+            var deletedTag = await _tagRepository.DeleteAsync(id);
             return RedirectToAction("List", "AdminTags");
         }
     }
