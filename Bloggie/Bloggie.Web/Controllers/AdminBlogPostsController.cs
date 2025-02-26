@@ -18,6 +18,13 @@ namespace Bloggie.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var blogPosts = await _blogPostRepository.GetAllAsync();
+            return View(blogPosts);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             // Get Tags From Repository
@@ -65,6 +72,41 @@ namespace Bloggie.Web.Controllers
             await _blogPostRepository.AddAsync(blogPostDomain); 
 
             return RedirectToAction("Add");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var blogPost = await _blogPostRepository.GetAsync(id);
+            var tags = await _tagRepository.GetAllAsync();
+
+            if(blogPost != null)
+            {
+                // Map Domain Model to ViewModel
+                var model = new EditBlogPostRequest
+                {
+                    Id = blogPost.Id,
+                    Heading = blogPost.Heading,
+                    PageTitle = blogPost.PageTitle,
+                    Content = blogPost.Content,
+                    Author = blogPost.Author,
+                    FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                    UrlHandle = blogPost.UrlHandle,
+                    ShortDescription = blogPost.ShortDescription,
+                    PublishedDate = blogPost.PublishedDate,
+                    Visible = blogPost.Visible,
+                    Tags = tags.Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString(),
+                    }),
+                    SelectedTags = blogPost.Tags.Select(x => x.Id.ToString()).ToArray()
+                };
+                return View(model);
+            }
+            return View(null);
+
         }
     }
 }

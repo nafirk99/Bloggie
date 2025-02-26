@@ -7,6 +7,7 @@ Progression Status
 9. Delete Tag Functionality
 5. Display All Blogs (Get all Blogs)
 35 - Display All Blogs Get all Blogs
+37 - Edit or Update Blog Functionality
 =================================
 
 ======================================================

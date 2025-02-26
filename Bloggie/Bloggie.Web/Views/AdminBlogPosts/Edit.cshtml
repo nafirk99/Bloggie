@@ -1,13 +1,25 @@
-﻿@model Bloggie.Web.Models.ViewModels.AddBlogPostRequest
+﻿@model Bloggie.Web.Models.ViewModels.EditBlogPostRequest
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
 
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
-        <h1>Add BlogPost - Admin Functionality</h1>
+        <h1>All BlogPosts - Admin Functionality</h1>
     </div>
 </div>
 
 <div class="container py-5">
-    <form method="post">
+    @if(Model != null)
+    {
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input id="id" class="form-control" type="text"  asp-for="Id" readonly />
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Heading</label>
             <input id="heading" class="form-control" type="text"  asp-for="Heading" />
@@ -55,14 +67,14 @@
 
         <div class="mb-3">
             <label class="form-label">Tag</label>
-            <select class="form-select" 
-                    asp-items="@Model.Tags" 
+            <select class="form-select"
+                    asp-items="@Model.Tags"
                     asp-for="SelectedTags">
             </select>
         </div>
-
-        <div class="mb-3">
-            <button type="submit" class="btn btn-dark">Save BlogPost</button>
-        </div>
-    </form>
+    }
+    else
+    {
+        <p>No Blog Post Found!</p>
+    }
 </div>
