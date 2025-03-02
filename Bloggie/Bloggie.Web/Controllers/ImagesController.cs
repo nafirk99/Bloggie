@@ -10,7 +10,7 @@ namespace Bloggie.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadAsync(IFormFile file)
         {
-
+            return Ok();
         }
     }
 }

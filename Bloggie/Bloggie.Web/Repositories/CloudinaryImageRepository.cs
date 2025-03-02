@@ -1,6 +1,11 @@
-﻿namespace Bloggie.Web.Repositories
+﻿
+namespace Bloggie.Web.Repositories
 {
-    public class CloudinaryImageRepository
+    public class CloudinaryImageRepository : IImageRepository
     {
+        public Task<string> UploadAsync(IFormFile file)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

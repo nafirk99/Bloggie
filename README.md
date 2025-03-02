@@ -10,6 +10,7 @@ Progression Status
 37 - Edit or Update Blog Functionality
 38 - Delete Blog Functionality
 39 - Introduction
+42 - Create Image API
 =====================================================
 
 ======================================================
