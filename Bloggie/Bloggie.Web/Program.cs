@@ -10,8 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BloggieDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BloggieDbConnectionString")));
 
-builder.Services.AddScoped<ITagRepository, TagRepository>();            // Registering the TagRepository with the DI container
-builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>(); //  Registering the BlogPostRepository with the DI container
+builder.Services.AddScoped<ITagRepository, TagRepository>();                    // Registering the TagRepository with the DI container
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();         //  Registering the BlogPostRepository with the DI container
+builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();    //   Registering the CloudinaryImageRepository with the DI container 
 
 var app = builder.Build();
 

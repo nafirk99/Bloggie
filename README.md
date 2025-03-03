@@ -11,6 +11,7 @@ Progression Status
 38 - Delete Blog Functionality
 39 - Introduction
 42 - Create Image API
+45 - Inject Image Repository and Test
 =====================================================
 
 ======================================================
