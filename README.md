@@ -12,6 +12,7 @@ Progression Status
 39 - Introduction
 42 - Create Image API
 45 - Inject Image Repository and Test
+46 - Call Image Upload From View
 =====================================================
 
 ======================================================
