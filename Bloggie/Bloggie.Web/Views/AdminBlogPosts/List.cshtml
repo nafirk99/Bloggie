@@ -34,8 +34,10 @@
                             </div>
                         </td>
                         <td>
-                            <a class="btn btn-dark" asp-area="" asp-controller="AdminBlogPosts" asp-action="Edit" asp-route-id="@blogPost.Id">Edit</a>
-                            <a class="btn btn-danger" asp-area="" asp-controller="AdminBlogPosts" asp-action="Delete" asp-route-id="@blogPost.Id">Delete</a>
+                            <div class="btn-group">
+                                <a class="btn btn-dark" asp-area="" asp-controller="AdminBlogPosts" asp-action="Edit" asp-route-id="@blogPost.Id">Edit</a>
+                                <a class="btn btn-danger" asp-area="" asp-controller="AdminBlogPosts" asp-action="Delete" asp-route-id="@blogPost.Id">Delete</a>
+                            </div>
                         </td>
                     </tr>
                 }

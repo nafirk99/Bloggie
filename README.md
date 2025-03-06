@@ -14,6 +14,7 @@ Progression Status
 45 - Inject Image Repository and Test
 46 - Call Image Upload From View
 48 - Add Image Upload To Froala WYSIWYG Editor
+51 - Displaying Blogs and Hero Section
 =====================================================
 
 ======================================================
