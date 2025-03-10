@@ -33,3 +33,10 @@ Migration Commands:
 Add-Migration "Migration Name"
 Update-Database
 ======================================================
+
+
+
+
+
+json 1 tab front
+response header no server
